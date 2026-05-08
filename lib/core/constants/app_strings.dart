@@ -17,6 +17,9 @@ class AppStrings {
   static const String homepageDescription =
       'Analyze agreements, ask legal questions and detect risky rental clauses instantly using AI.';
   static const String askAnyThing = 'Ask anything related to rental agreements';
+  static const String pleaseEnterQuestion =
+      'Please enter your question to proceed';
+  static const String attention = 'Attention';
 
   static const String dummyResponse = '''
 Clause 4.2 appears potentially unlawful.

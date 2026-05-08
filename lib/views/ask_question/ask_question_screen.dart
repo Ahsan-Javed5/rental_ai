@@ -4,6 +4,7 @@ import 'package:rental_ai/core/widgets/custom_loader.dart';
 import '../../controllers/text_analysis_controller.dart';
 import '../../core/constants/app_strings.dart';
 import '../../core/widgets/custom_button.dart';
+import '../../core/widgets/custom_snack_bar.dart';
 import '../../core/widgets/custom_textfield.dart';
 
 class AskQuestionScreen extends StatelessWidget {
@@ -17,7 +18,6 @@ class AskQuestionScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(AppStrings.askQuestion),
       ),
-      // Stack use kiya hai taakay loader content ke upar aaye
       body: Stack(
         children: [
           GestureDetector(
@@ -45,19 +45,26 @@ class AskQuestionScreen extends StatelessWidget {
                     const SizedBox(height: 25),
                     CustomButton(
                       text: AppStrings.analyze,
-                      onTap: controller.analyzeQuestion,
+                      onTap: () {
+                        if (controller.questionController.text.trim().isEmpty) {
+                          CustomSnackBar.show(
+                            title: AppStrings.attention,
+                            message: AppStrings.pleaseEnterQuestion,
+                          );
+                        } else {
+                          controller.analyzeQuestion();
+                        }
+                      },
                     ),
                   ],
                 ),
               ),
             ),
           ),
-
-          // Full Screen Overlay Loader
           Obx(
             () => controller.isLoading.value
                 ? Container(
-                    color: Colors.black.withOpacity(0.3), // Light blur effect
+                    color: Colors.black.withOpacity(0.3),
                     child: const Center(
                       child: CustomLoader(size: 100),
                     ),
